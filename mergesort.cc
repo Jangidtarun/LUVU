@@ -51,9 +51,9 @@ void mergesort(int l, int r, vector<int> &arr)
 
 int main()
 {
-    vector<int> arr = {1, 7, -3, 2, -8, 5, 0, 180};
+    vector<int> arr = {1, 7, 3, 2, 8, 5, 0};
     mergesort(0, arr.size() - 1, arr);
     for (int val : arr)
-        cout << "val: " << val << " ";
+        cout << val << " ";
     cout << endl;
 }
