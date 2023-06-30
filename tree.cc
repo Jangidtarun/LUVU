@@ -7,18 +7,24 @@ bool vis[N];
 vector<vector<int>> cc;
 int ct = 0;
 
-void dfs(vector<int> g[], int vertex)
+bool dfs(vector<int> g[], int vertex, int parent)
 {
     cout << "\n"
          << vertex << ": ";
     vis[vertex] = true;
+    bool loopexist = false;
     cc[ct].push_back(vertex);
     for (int child : g[vertex])
     {
         cout << child << " ";
-        if (!vis[child])
-            dfs(g, child);
+        if (vis[child] and child == parent)
+            continue;
+        if (vis[child])
+            return true;
+        loopexist |= dfs(g, child, vertex);
+        // loopexist = true;
     }
+    return loopexist;
 }
 
 int main()
@@ -38,7 +44,10 @@ int main()
         if (!vis[i])
         {
             cc.push_back(vector<int>());
-            dfs(graph, i);
+            if (dfs(graph, i, 0))
+                cout << "\nloop exists";
+            else
+                cout << "\nNAH";
             ct++;
         }
     }
