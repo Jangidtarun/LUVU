@@ -3,10 +3,12 @@ using namespace std;
 const int N = 1e5 + 10;
 int depth[N], height[N];
 int subsum[N], evencount[N], oddcount[N];
+int par[N];
 vector<int> g[N];
 
-void dfs(int vertex, int parent = 0)
+void dfs(int vertex, int parent = -1)
 {
+    par[vertex] = parent;
     subsum[vertex] += vertex;
     if (vertex % 2)
         oddcount[vertex]++;
@@ -24,6 +26,18 @@ void dfs(int vertex, int parent = 0)
             oddcount[vertex] += oddcount[child];
         }
     }
+}
+
+vector<int> path(int vertex)
+{
+    vector<int> ans;
+    while (vertex != -1)
+    {
+        ans.push_back(vertex);
+        vertex = par[vertex];
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
 }
 
 int main()
@@ -63,7 +77,24 @@ int main()
     dfs(diamNode);
     cout << endl;
     for (int i = 0; i <= v; i++)
+    {
         if (diameter < depth[i])
             diameter = depth[i];
+        depth[i] = 0;
+    }
     cout << diameter << endl;
+
+    dfs(1);
+    int x, y;
+    cin >> x >> y;
+    int LCA = -1;
+    vector<int> pathx = path(x);
+    vector<int> pathy = path(y);
+    int mint = min(pathx.size(), pathy.size());
+    for (int i = 0; i < mint; i++)
+        if (pathx[i] == pathy[i])
+            LCA = pathx[i];
+
+    cout << endl;
+    cout << LCA << endl;
 }
