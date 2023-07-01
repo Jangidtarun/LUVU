@@ -47,4 +47,23 @@ int main()
     cout << endl;
     for (int i = 1; i <= v; i++)
         cout << subsum[i] << endl;
+
+    int diameter = -1;
+    int diamNode = -1;
+    for (int i = 1; i <= v; i++)
+    {
+        if (diameter < depth[i])
+        {
+            diameter = depth[i];
+            diamNode = i;
+        }
+        depth[i] = 0;
+    }
+
+    dfs(diamNode);
+    cout << endl;
+    for (int i = 0; i <= v; i++)
+        if (diameter < depth[i])
+            diameter = depth[i];
+    cout << diameter << endl;
 }
