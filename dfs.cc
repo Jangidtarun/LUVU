@@ -87,6 +87,11 @@ int main()
     dfs(1);
     int x, y;
     cin >> x >> y;
+    if (x > v or y > v)
+    {
+        cout << "NOT in Tree\n";
+        return EXIT_FAILURE;
+    }
     int LCA = -1;
     vector<int> pathx = path(x);
     vector<int> pathy = path(y);
